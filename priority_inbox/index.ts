@@ -57,7 +57,7 @@ async function fetchNotifications(apiBase: string, token: string): Promise<Notif
         throw new Error(`HTTP ${res.status}`);
     }
 
-    const data = await res.json();
+    const data = (await res.json()) as { notifications?: Notification[] };
     const notifications = Array.isArray(data.notifications) ? data.notifications : [];
     logger.info("API", "Fetch success", { count: notifications.length });
     return notifications;
